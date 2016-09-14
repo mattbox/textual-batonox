@@ -132,8 +132,8 @@ body[dir=ltr] .time {
 /* Links */
 
 a {
-  color: #64a5ff;
-  border-color: #64a5ff;
+  color: #ccc;
+  border-color: #ccc;
   text-decoration: none;
   border-bottom: dotted 1px;
 }
@@ -148,24 +148,21 @@ a:hover {
   top: 0;
   left: 0;
   right: 0;
-  padding-bottom: 5px;
-  opacity: 0;
-  /* Set by JavaScript */
+  opacity: 0; /* Set by JavaScript */
   z-index: 400;
   color: #dddddd;
-  overflow: hidden;
   position: fixed;
   padding: 7px 0.5em 7px;
   /* box-shadow: 0 1px 5px #777; */
   border-bottom: 1px solid #404040;
-  -webkit-transition: opacity 0.8s linear;
   text-shadow: 1px 1px rgba(10, 10, 10, 0.7);
   background: rgba(60, 60, 60, 1);
+  -webkit-transition: opacity 0.8s linear;
+	-webkit-font-smoothing: subpixel-antialiased;
+  overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-/* Topic bar hover additions contributed with permission from the project:
-	<https://github.com/hbang/Simplified-Light-Modifications> */
 
 #topic_bar:hover {
 	overflow: visible;
@@ -173,7 +170,7 @@ a:hover {
 }
 
 #topic_bar a,
-#topic_bar .channel {
+#topic_bar span.channel {
   color: #64a5ff;
   border-color: #64a5ff;
   text-shadow: 1px 1px rgba(10, 10, 10, 0.7);
@@ -483,7 +480,15 @@ body div.event span.message {
   padding-left: 0;
 }
 
-body div.line[ltype=join], body div.line[ltype=part], body div.line[ltype=quit], body div.line[ltype=mode], body div.line[ltype=nick], body div.line[ltype=topic], body div.line[ltype=kill], body div.line[ltype=kick], body div.line[ltype=website] {
+body div.line[ltype=join],
+body div.line[ltype=part],
+body div.line[ltype=quit],
+body div.line[ltype=mode],
+body div.line[ltype=nick],
+body div.line[ltype=topic],
+body div.line[ltype=kill],
+body div.line[ltype=kick],
+body div.line[ltype=website] {
   /* font-size: 95%; */
   /* min-height: 19px; */
   padding-left: 145px;

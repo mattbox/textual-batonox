@@ -8,8 +8,6 @@
 	<true/>
 	<key>Nickname Color Style</key>
 	<string>HSL-dark</string>
-	<key>Nickname Format</key>
-	<string><%@%n></string>
 	<key>Post Textual.handleEvent() Notifications</key>
 	<true/>
 	<key>Template Engine Versions</key>

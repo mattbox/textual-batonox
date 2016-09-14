@@ -4,7 +4,7 @@
 /* Defined in: "Textual.app -> Contents -> Resources -> JavaScript -> API -> core.js" */
 
 /* Theme-wide preferences, as per milky's request */
-var Equinox = {
+var Batonox = {
   fadeNicks: false,           // fade out nicknames when they appear multiple times in a row
   fadeNicksFreq: 10,          // how frequently to display a nick if they have fadeNickCounts lines in a row
   showDateChanges: true,      // show date changes
@@ -43,6 +43,9 @@ var NickColorGenerator = (function () {
 
     // Start alternative nick colouring procedure
     var selectNick = message.querySelector('.sender:not([mtype=myself])');
+    if (selectNick == null){
+      return;
+    }
     selectNick.removeAttribute('colornumber');
 
     inlineNicks = message.querySelectorAll('.inline_nickname');
@@ -139,7 +142,7 @@ function dateChange(e) {
   var MAXTIMEOFFSET = 30000;  // 30 seconds
 
   // Only show date changes if the option is enabled
-  if (!Equinox.showDateChanges) {
+  if (!Batonox.showDateChanges) {
     return;
   }
 
@@ -255,8 +258,8 @@ Textual.newMessagePostedToView = function (line) {
     }
 
     // Track the nicks that submit messages, so that we can space out everything
-    if ((rs.nick.nick === sender.textContent) && (rs.nick.count < Equinox.fadeNicksFreq)
-      && (message.getAttribute('ltype') !== 'action') && (Equinox.fadeNicks === true)) {
+    if ((rs.nick.nick === sender.textContent) && (rs.nick.count < Batonox.fadeNicksFreq)
+      && (message.getAttribute('ltype') !== 'action') && (Batonox.fadeNicks === true)) {
       rs.nick.delete = true;
       rs.nick.count += 1;
     } else {
@@ -291,7 +294,7 @@ Textual.newMessagePostedToView = function (line) {
 
   /* Let's kill topics that appear where they had already been set before
      This happens when you join a room (like a reconnect) that you had been in and seen the topic before */
-  if (Equinox.squashTopics === true && message.getAttribute('ltype') === 'topic') {
+  if (Batonox.squashTopics === true && message.getAttribute('ltype') === 'topic') {
     topic = message.getElementsByClassName('message')[0].textContent.replace('Topic is ', '').replace(/\s+/, '');
 
     if (message.getAttribute('command') === '332') { // an actual topic change
@@ -311,7 +314,7 @@ Textual.newMessagePostedToView = function (line) {
   }
 
   // much like we suppress duplicate topics, we want to suppress duplicate modes
-  if (Equinox.squashModes === true && message.getAttribute('ltype') === 'mode') {
+  if (Batonox.squashModes === true && message.getAttribute('ltype') === 'mode') {
     mode = message.getElementsByClassName('message')[0].textContent.replace(/\s+/, '');
 
     if (mode === rs.mode.mode) {
@@ -383,7 +386,7 @@ Textual.viewBodyDidLoad = function () {
   /* Disable date changes on OS X Mountain Lion because WebKit does not have some of
      the features that this feature depends on (e.g. -webkit-flex) */
   if (document.documentElement.getAttribute("systemversion").indexOf("10.8.") === 0) {
-    Equinox.showDateChanges = false;
+    Batonox.showDateChanges = false;
   }
 };
 
