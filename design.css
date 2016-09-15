@@ -563,7 +563,7 @@ body[dir=rtl] div[ltype=quit] .message:before {
 
 /* Nickname Colors */
 body .sender[mtype=myself] {
-  color: #9A60FF;
+  color: #b5bbd1;
 }
 
 body .sender {
