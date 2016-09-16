@@ -42,8 +42,8 @@ var NickColorGenerator = (function () {
     var i, inlineNicks, nick;
 
     // Start alternative nick colouring procedure
-    var selectNick = message.querySelector('.sender:not([mtype=myself])');
-    if (selectNick == null){
+    var selectNick = message.querySelector('.sender:not([mtype=myself])'); // All nicks except self
+    if (selectNick == null){            // This prevents your own nick from having a generated color
       return;
     }
     selectNick.removeAttribute('colornumber');
