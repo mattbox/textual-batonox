@@ -177,6 +177,7 @@ a:hover {
 }
 
 /* Hidden scrollback history bar */
+/*
 #scrolling_history {
   z-index: 400;
   position: fixed;
@@ -184,7 +185,7 @@ a:hover {
   left: 0;
   right: 0;
   height: auto;
-  /* box-shadow: 0 1px 5px #777; */
+  box-shadow: 0 1px 5px #777;
   border-top: 1px solid #404040;
   text-shadow: 1px 1px rgba(10, 10, 10, 0.7);
   background: rgba(60, 60, 60, 1);
@@ -195,6 +196,7 @@ a:hover {
 #scrolling_history .senderContainer {
     background: rgba(60, 60, 60, 1);
 }
+*/
 
 
 /* Images */
