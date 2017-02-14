@@ -6,7 +6,7 @@
 /* Theme-wide preferences, as per milky's request */
 var Batonox = {
   fadeNicks: false,           // fade out nicknames when they appear multiple times in a row
-  fadeNicksFreq: 10,          // how frequently to display a nick if they have fadeNickCounts lines in a row
+  fadeNicksFreq: 10,          // how frequently to display a nick if fadeNickCounts lines in a row
   showDateChanges: true,      // show date changes
   squashModes: true,          // if a duplicate mode gets posted to the channel, squash it
   squashTopics: true          // if a duplicate topic gets posted to the channel, squash it
@@ -42,8 +42,8 @@ var NickColorGenerator = (function () {
     var i, inlineNicks, nick;
 
     // Start alternative nick colouring procedure
-    var selectNick = message.querySelector('.sender:not([mtype=myself])'); // All nicks except self
-    if (selectNick == null){            // This prevents your own nick from having a generated color
+    var selectNick = message.querySelector('.sender:not([mtype=myself])');
+    if (selectNick == null){
       return;
     }
     selectNick.removeAttribute('colornumber');
