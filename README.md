@@ -1,6 +1,7 @@
 # Textual-Batonox
 A  dark theme (style) for the Textual IRC client for Mac OS X based on the Equinox theme - Supports Textual 6
 
+![alt text](https://raw.githubusercontent.com/mattbox/textual-batonox/master/batonox.png)
 
 
 ## Installing
