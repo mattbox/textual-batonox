@@ -9,7 +9,8 @@ var Batonox = {
   fadeNicksFreq: 10,          // how frequently to display a nick if fadeNickCounts lines in a row
   showDateChanges: true,      // show date changes
   squashModes: true,          // if a duplicate mode gets posted to the channel, squash it
-  squashTopics: true          // if a duplicate topic gets posted to the channel, squash it
+  squashTopics: true,         // if a duplicate topic gets posted to the channel, squash it
+  ignoreMyNick: true          // ignore your nickname when generating nick colors
 };
 
 /* Set the default statuses for everything tracked in the roomState */
@@ -42,8 +43,8 @@ var NickColorGenerator = (function () {
     var i, inlineNicks, nick;
 
     // Start alternative nick colouring procedure
-    var selectNick = message.querySelector('.sender:not([mtype=myself])');
-    if (selectNick == null){
+    var selectNick = message.querySelector('.sender');
+    if ((selectNick.getAttribute('mtype') == 'myself') && (Batonox.ignoreMyNick === true)) {
       return;
     }
     selectNick.removeAttribute('colornumber');
@@ -267,29 +268,6 @@ Textual.newMessagePostedToView = function (line) {
       rs.nick.count  = 1;
       rs.nick.delete = false;
     }
-
-    // Track the previous message's id
-    rs.nick.id = message.getAttribute('id');
-
-    // Copy the message into the hidden history
-    clone = message.cloneNode(true);
-    clone.removeAttribute('id');
-    rs.history.appendChild(clone);
-
-    // Colorize it as well
-    if (sender.getAttribute('coloroverride') !== 'true') {
-      new NickColorGenerator(clone); // colorized the nick
-    }
-
-    // Remove old messages, if the history is longer than three messages
-    if (rs.history.childElementCount > 2) {
-      rs.history.removeChild(rs.history.childNodes[0]);
-
-      // Hide the first nick in the hidden history, if it's the same as the second
-      if ((rs.nick.count > 1) && (message.getAttribute('ltype') !== 'action')) {
-        rs.history.getElementsByClassName('sender')[0].style.visibility = 'hidden';
-      }
-    }
   }
 
   /* Let's kill topics that appear where they had already been set before
@@ -388,37 +366,4 @@ Textual.viewBodyDidLoad = function () {
   if (document.documentElement.getAttribute("systemversion").indexOf("10.8.") === 0) {
     Batonox.showDateChanges = false;
   }
-};
-
-Textual.viewInitiated = function () {
-  'use strict';
-
-  /* When the view is loaded, create a hidden history div which we display if there is scrollback */
-  var body = document.getElementById('body_home'), div = document.createElement('div');
-  div.id = 'scrolling_history';
-  document.getElementsByTagName('body')[0].appendChild(div);
-  rs.history = div;
-
-  /* setup the scrolling event to display the hidden history if the bottom element isn't in the viewport
-     also hide the topic bar when scrolling */
-  window.onscroll = function () {
-    var line, lines;
-    var topic = document.getElementById('topic_bar');
-
-    lines = body.getElementsByClassName('line');
-    if (lines.length < 2) {
-      return;
-    }
-    line = lines[lines.length - 1];
-
-    if (isMessageInViewport(line) === false) {
-      // scrollback
-      rs.history.style.display = 'inline';
-      if (topic) { topic.style.visibility = 'hidden'; }
-    } else {
-      // at the bottom
-      rs.history.style.display = 'none';
-      if (topic) { topic.style.visibility = 'visible'; }
-    }
-  };
 };
